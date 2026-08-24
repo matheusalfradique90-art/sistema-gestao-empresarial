@@ -1,5 +1,115 @@
 funcionarios = []
 
+def cadastrar_funcionario(id, nome, salario, idade, funcao):
+
+    funcionario = {
+            'id': id,
+            'nome': nome,
+            'salario': salario,
+            'idade': idade,
+            'funcao': funcao
+        }
+    
+    funcionarios.append(funcionario)
+
+    print()
+    print('FUNCIONÁRIO CADASTRADO COM SUCESSO')
+    print()
+
+    return funcionario
+
+def listar_funcionarios():
+    quantidade = len(funcionarios)
+    
+    if quantidade == 0:
+        print('NENHUM FUNCIONÁRIO CADASTRADO')
+        print()
+                    
+    else:
+        for funcionario in funcionarios:
+            print('ID', funcionario['id'], '|', 'nome: ', funcionario['nome'], '|',  'salario: ',  funcionario['salario'], '|', 'idade: ', funcionario['idade'], '|', 'função: ', funcionario['funcao'])
+            print()
+
+def editar_funcionario():
+    id = int(input('Digite o ID do funcionário: '))
+    print()
+
+    encontrado = False
+
+    for funcionario in funcionarios:
+        
+
+        if funcionario['id'] == id:
+            
+            print(
+                'nome:', funcionario['nome'],
+                '| salario:', funcionario['salario'],
+                '| idade:', funcionario['idade'],
+                '| função: ', funcionario['funcao']
+            )
+            print()
+
+
+            print('OQUE DESEJA EDITAR? ')
+            print()
+
+            print('1- Nome')
+            print('2- Salário')
+            print('3- Idade')
+            print('4- Função')
+
+            escolha = int(
+                input('Escolha uma opção: '
+                    )
+            )
+
+            if escolha == 1:
+                nome_editar = input('Digite o novo nome: ')
+                funcionario['nome'] = nome_editar
+
+            elif escolha == 2:
+                salario_editar = float(input('Digite o novo salário: '))
+                funcionario['salario'] = salario_editar
+
+            elif escolha == 3:
+                idade_editar = int(input('Digite a nova idade: '))
+                funcionario['idade'] = idade_editar        
+
+            elif escolha == 4:
+                funcao_editar = input('Digite a nova função: ')
+                funcionario['funcao'] = funcao_editar
+
+            else:
+                print('OPÇÃO INVÁLIDA!')
+                return
+
+            print()
+            print('FUNCIONÁRIO EDITADO COM SUCESSO!')
+
+    if encontrado == False:
+        print('FUNCIONÁRIO NÃO ENCONTRADO!')
+        print()
+
+def excluir_funcionario():
+    id = int(input('Digite o ID do fncionário: '))
+    print()
+
+    for funcionario in funcionarios:
+
+        if funcionario['id'] == id:
+            encontrado = True
+        
+            funcionarios.remove(funcionario)
+            print('FUNCIONÁRIO DELETADO COM SUCESSO!')
+            print()
+
+        if encontrado == False:
+            print('FUNCIONÁRIO NÃO ENCONTRADO!')
+            print()
+
+    
+
+
 while True:
     print('='*40)
     print('             NEXORA')
@@ -22,6 +132,8 @@ while True:
     if escolha == 1:
         print('1- Cadastrar Funcionario')
         print('2- Listar Funcoinários')
+        print('3- Editar Funcionário')
+        print('4- Excluir Funcionário')
         print()
 
         escolha1 = int(
@@ -31,44 +143,60 @@ while True:
         print()
 
         if escolha1 == 1:
+
+            id = len(funcionarios) + 1
+
             nome = input('Nome do funcionario: '
-                        )
+                            )
             salario = float(
                 input('Salario do funcionario: '
-                    )
+                        )
             )
             idade = int(
                 input('Idade do funcionario: '
-                    )
+                )
             )
-            funcao = input('Função do funcionario: '
-                        )
 
-            funcionario = {
-                'nome': nome,
-                'salario': salario,
-                'idade': idade,
-                'funcao': funcao
-            }
-
-            funcionarios.append(funcionario)
-            print()
-            print('FUNCIONÁRIO CADASTRADO COM SUCESSO')
+            print('-' *40)
+            print('        FUNÇÕES DA EMPRESSA')
+            print('-' * 40)
             print()
 
-        elif escolha1 == 2:
+            print('1- Repositor')
+            print('2- Caixa')
+            print('3- Açougue')
+            print('4- Gerente')
 
-            quantidade = len(funcionarios)
+            escolha_funcao = int(input('escolha uma função: '))
 
-            if quantidade == 0:
-                print('NENHUM FUNCIONÁRIO CADASTRADO')
-                print()
-                
+            if escolha_funcao == 1:
+                funcao = 'Repositor'
+
+            elif escolha_funcao == 2:
+                funcao = 'Caixa'
+
+            elif escolha_funcao == 3:
+                funcao =  'Açougue'
+
+            elif escolha_funcao == 4:
+                funcao = 'Gerente'
+
             else:
-                for funcionario in funcionarios:
-                    print('nome: ', funcionario['nome'], '|',  'salario: ',  funcionario['salario'], '|', 'idade: ', funcionario['idade'], '|', 'função: ', funcionario['funcao'])
-                    print()
+                print('OPÇÃO INVALIDA!')
 
+            cadastrar_funcionario(id, nome, salario, idade, funcao)
+    
+                            
+        elif escolha1 == 2:
+            listar_funcionarios()
+
+        elif escolha1 == 3:
+            editar_funcionario()
+
+        elif escolha1 == 4:
+            excluir_funcionario()
+
+           
         else:
             print('VOCÊ DIGITOU ERRADO!')
             print()
