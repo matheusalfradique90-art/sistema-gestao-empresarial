@@ -1,3 +1,5 @@
+funcionarios = []
+
 while True:
     print('='*40)
     print('             NEXORA')
@@ -15,9 +17,61 @@ while True:
     print()
 
     escolha = int(input('Escolha uma opção: '))
+    print()
 
     if escolha == 1:
-        print('Você escolheu funcionarios')
+        print('1- Cadastrar Funcionario')
+        print('2- Listar Funcoinários')
+        print()
+
+        escolha1 = int(
+            input('Escolha uma opção: '
+                  )
+        )
+        print()
+
+        if escolha1 == 1:
+            nome = input('Nome do funcionario: '
+                        )
+            salario = float(
+                input('Salario do funcionario: '
+                    )
+            )
+            idade = int(
+                input('Idade do funcionario: '
+                    )
+            )
+            funcao = input('Função do funcionario: '
+                        )
+
+            funcionario = {
+                'nome': nome,
+                'salario': salario,
+                'idade': idade,
+                'funcao': funcao
+            }
+
+            funcionarios.append(funcionario)
+            print()
+            print('FUNCIONÁRIO CADASTRADO COM SUCESSO')
+            print()
+
+        elif escolha1 == 2:
+
+            quantidade = len(funcionarios)
+
+            if quantidade == 0:
+                print('NENHUM FUNCIONÁRIO CADASTRADO')
+                print()
+                
+            else:
+                for funcionario in funcionarios:
+                    print('nome: ', funcionario['nome'], '|',  'salario: ',  funcionario['salario'], '|', 'idade: ', funcionario['idade'], '|', 'função: ', funcionario['funcao'])
+                    print()
+
+        else:
+            print('VOCÊ DIGITOU ERRADO!')
+            print()
 
     elif escolha == 2:
         print('Você escolheu clientes')
