@@ -1,5 +1,6 @@
 funcionarios = []
 clientes = []
+produtos = []
 
 # TODO: ---------------------------
 # *!FUNÇÕES DO MODULO FUNCIONARIOS!
@@ -115,7 +116,14 @@ def excluir_funcionario():
 # TODO: ------------------------------------
 # *! FIM DAS FUNÇÕES DO MODULO FUNCIONARIOS!
 # TODO: ------------------------------------
-    
+
+
+
+
+# *?-----------------------------
+# *!FUNÇÕES DO MODULO DE CLIENTES
+# *?-----------------------------
+
 def cadastrar_cliente(id, nome, cpf, telefone, email, ativo):
     cliente = {
         'id': id,
@@ -146,8 +154,10 @@ def editar_cliente():
     encontrado = False
     
     for cliente in clientes:
+        encontrado = True
     
         if cliente['id'] == id:
+            encontrado = True
 
             print(
                 'nome:', cliente['nome'],
@@ -210,6 +220,7 @@ def editar_cliente():
 
 def excluir_cliente():
     id = int(input('ID do cliente: '))
+    encontrado = False
 
     for cliente in clientes:
         
@@ -239,8 +250,132 @@ def excluir_cliente():
                 print('CLIENTE NÂO ENCONTRADO!')
                 print()
 
+# *?-----------------------------
+# *! FIM DAS FUNÇÕES DO MODULO DE CLIENTES
+# *?-----------------------------
     
+def cadastrar_produtos(id, nome, preco, categoria, ativo):
 
+    produto = {
+        'id': id,
+        'nome': nome,
+        'preco': preco,
+        'categoria': categoria,
+        'ativo': ativo
+    }
+
+    produtos.append(produto)
+    print('PRODUTO CADASTRADO COM SUCESSO!')
+    print()
+
+    return produto
+
+def listar_produto():
+    for produto in produtos:
+         print('ID: ', produto['id'], '|', 'Nome: ', produto['nome'], '|', 'Preco: ', produto['preco'], '|', 'Categoria: ', produto['categoria'], '|', 'ATIVO: ', produto['ativo'])
+         print()
+
+def editar_produto():
+    id = int(input('ID do Produto: '))
+    print()
+        
+    encontrado = False
+        
+    for produto in produtos:
+        
+        if produto['id'] == id:
+                encontrado = True    
+                print(
+                    'nome:', produto['nome'],
+                    '| preco:', produto['preco'],
+                    '| categoria:', produto['categoria'],
+                    'ativo:', produto['ativo']
+                )
+                print()
+    
+                print('OQUE DESEJA EDITAR?')
+                print()
+                
+                print('1- Nome')
+                print('2- Preço')
+                print('3- Categoria')
+                print('4- Ativo')
+    
+    
+                escolha = int(input('Escolha uma opção: '))
+                print()
+    
+                if escolha == 1:
+                    novo_nome = input('Novo nome: ')
+                    produto['nome'] = novo_nome
+    
+                elif escolha == 2:
+                    novo_preco = float(input('Novo preço: '))
+                    produto['preco'] = novo_preco
+    
+                elif escolha == 3:
+                    nova_categoria = input('Nova categoria: ')
+                    produto['categoria'] = nova_categoria
+    
+    
+                elif escolha == 4:
+                    print('1- Ativar')
+                    print('2- Desativar')
+                    print()
+    
+                    escolha_ativo = int(input('Escolha uma opção: '))
+    
+                    if escolha_ativo == 1:
+                        produto['ativo'] = True
+    
+                    elif escolha_ativo == 2:
+                        produto['ativo'] = False
+                print()
+    
+                print()
+                print('PRODUTO ATUALIZADO COM SUCESSO!')
+                print()
+    
+    if encontrado == False:
+        print('PRODUTO NÃO ENCONTRADO!')
+        print()
+
+def excluir_produto():
+    id = int(input('ID do Produto: '))
+    print()
+    encontrado = False
+    
+    for produto in produtos:
+            
+        if produto['id'] == id:
+            encontrado = True
+           
+    
+            print('EXCLUIR PRODUTO DE ID: ', id,'?')
+            print()
+    
+            print('1- Sim')
+            print('2- Não')
+            print()
+    
+            escolha = int(input('Escolha uma opção: '))
+            print()
+    
+            if escolha == 1:
+                produtos.remove(produto)
+                print('PRODUTO EXCLUIDO COM SUCESSO!')
+                print()
+    
+            elif escolha == 2:
+                print('OPERAÇÃO CANCELADA!')
+                print()
+    
+            if encontrado == False:
+                print('PRODUTO NÂO ENCONTRADO!')
+                print()
+    
+    
+    
 
 while True:
     print('='*40)
@@ -369,7 +504,75 @@ while True:
             
 
     elif escolha == 3:
-        print('Você escolheu produtos')
+        print('1- Cadastrar Produto')
+        print('2- Listar Produtos')
+        print('3- Editar Produto')
+        print('4- Excluir Produto')
+        print()
+
+        escolha3 = int(input('escolha uma opção: '))
+        print()
+
+        if escolha3 == 1:
+
+            id = len(produtos) + 1
+
+            nome = input('Nome do produto: ')
+            preco = float(input('Preço do produto: '))
+            print('-' * 40)
+            print('        CATEGORIA DE PRODUTOS')
+            print('-' * 40)
+            print()
+
+            print('1- Alimentos')
+            print('2- Bebidas')
+            print('3- Higiene')
+            print('4- Limpeza')
+            print('5- Eletrônicos')
+            print('6- Vestuário')
+            print('7-  Outros')
+
+            escolha_categoria = int(input('escolha uma opção: '))
+            print()
+
+            if escolha_categoria == 1:
+                categoria = 'Alimentos'
+
+            elif escolha_categoria == 2:
+                categoria = 'Bebidas'
+
+            elif escolha_categoria == 3:
+                categoria = 'Higiene'
+
+            elif escolha_categoria == 4:
+                categoria = 'Limpeza'
+
+            elif escolha_categoria == 5:
+                categoria = 'Eletrônicos'
+
+            elif escolha_categoria == 6:
+                categoria = 'Vestuário'
+
+            elif escolha_categoria == 7:
+                categoria = 'Outros'
+
+            else:
+                print('OPÇÃO INVALIDA!')
+                print()
+
+            ativo = True
+
+            cadastrar_produtos(id, nome, preco, categoria, ativo)
+
+        elif escolha3 == 2:
+            listar_produto()
+
+        elif escolha3 == 3:
+            editar_produto()
+
+        elif escolha3 == 4:
+            excluir_produto()
+
 
     elif escolha == 4:
         print('Você escolheu estoque')
