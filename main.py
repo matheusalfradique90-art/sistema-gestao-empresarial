@@ -1,4 +1,9 @@
 funcionarios = []
+clientes = []
+
+# TODO: ---------------------------
+# *!FUNÇÕES DO MODULO FUNCIONARIOS!
+# TODO: ----------------------------
 
 def cadastrar_funcionario(id, nome, salario, idade, funcao):
 
@@ -107,6 +112,133 @@ def excluir_funcionario():
             print('FUNCIONÁRIO NÃO ENCONTRADO!')
             print()
 
+# TODO: ------------------------------------
+# *! FIM DAS FUNÇÕES DO MODULO FUNCIONARIOS!
+# TODO: ------------------------------------
+    
+def cadastrar_cliente(id, nome, cpf, telefone, email, ativo):
+    cliente = {
+        'id': id,
+        'nome': nome,
+        'cpf': cpf,
+        'telefone': telefone,
+        'email': email,
+        'ativo': ativo
+    }
+
+    print()
+    print('CLIENTE CADASTRADO COM SUCESSO!')
+    print()
+
+    clientes.append(cliente)
+
+    return cliente
+
+def listar_clientes():
+    for cliente in clientes:
+                    print('ID: ', cliente['id'], '|', 'nome: ', cliente['nome'], '|', 'CPF: ', cliente['cpf'], '|', 'Telefone: ', cliente['telefone'], '|', 'Email: ', cliente['email'], '|', 'ATIVO: ', cliente['ativo'])
+                    print()
+    
+def editar_cliente():
+    id = int(input('ID do cliente: '))
+    print()
+    
+    encontrado = False
+    
+    for cliente in clientes:
+    
+        if cliente['id'] == id:
+
+            print(
+                'nome:', cliente['nome'],
+                '| CPF:', cliente['cpf'],
+                '| Telefone:', cliente['telefone'],
+                '| Email:', cliente['email']
+            )
+            print()
+
+            print('OQUE DESEJA EDITAR?')
+            print()
+            
+            print('1- Nome')
+            print('2- Cpf')
+            print('3- Telefone')
+            print('4- Email')
+            print('5- Ativo')
+
+
+            escolha = int(input('Escolha uma opção: '))
+            print()
+
+            if escolha == 1:
+                novo_nome = input('Novo nome: ')
+                cliente['nome'] = novo_nome
+
+            elif escolha == 2:
+                novo_cpf = input('Novo CPF: ex:(xxx.xxx.xxx-xx): ')
+                cliente['cpf'] = novo_cpf
+
+            elif escolha == 3:
+                novo_telefone = input('Novo telefone ex: (xx) xxxxx-xxxx: ')
+                cliente['telefone'] = novo_telefone
+
+            elif escolha == 4:
+                novo_email = input('Novo email ex:(xxx.@gmail.com): ')
+                cliente['email'] = novo_email
+
+            elif escolha == 5:
+                print('1- Ativar')
+                print('2- Desativar')
+                print()
+
+                escolha_ativo = int(input('Escolha ima opção: '))
+
+                if escolha_ativo == 1:
+                    cliente['ativo'] = True
+
+                elif escolha_ativo == 2:
+                    cliente['ativo'] = False
+            print()
+
+            print()
+            print('CLIENTE ATUALIZADO COM SUCESSO!')
+            print()
+
+        if encontrado == False:
+            print('CLIENTE NÃO ENCONTRADO!')
+            print()
+
+def excluir_cliente():
+    id = int(input('ID do cliente: '))
+
+    for cliente in clientes:
+        
+        if cliente['id'] == id:
+            encontrado = True
+
+            print('EXCLUIR CLIENTE DE ID: ', id,'?')
+            print()
+
+            print('1- Sim')
+            print('2- Não')
+            print()
+
+            escolha = int(input('Escolha uma opção: '))
+            print()
+
+            if escolha == 1:
+                clientes.remove(cliente)
+                print('CLIENTE EXCLUIDO COM SUCESSO!')
+                print()
+
+            elif escolha == 2:
+                print('OPERAÇÃO CANCELADA!')
+                print()
+
+            if encontrado == False:
+                print('CLIENTE NÂO ENCONTRADO!')
+                print()
+
     
 
 
@@ -202,7 +334,39 @@ while True:
             print()
 
     elif escolha == 2:
-        print('Você escolheu clientes')
+        print('1- Cadastrar Cliente')
+        print('2- Listar Clientes')
+        print('3- Editar Cliente')
+        print('4- Excluir CLiente')
+        print()
+
+        escolha2 = int(input('Escolha uma opção: '))
+        print()
+
+        if escolha2 == 1:
+
+            id = len(clientes) + 1
+
+            nome = input('Nome do cliente: ')
+            cpf = input('CPF: ex:(xxx.xxx.xxx-xx): ')
+            telefone = input('telefone ex:(xx) xxxxx-xxxx: ')
+            email = input('Email: ex:(xxx.gmail.com): ')
+            ativo = True
+
+            cadastrar_cliente(id, nome, cpf, telefone, email, ativo)
+
+        elif escolha2 == 2:
+            listar_clientes()
+
+        elif escolha2 == 3:
+            editar_cliente()
+
+        elif escolha2 == 4:
+            excluir_cliente()
+
+        else:
+            print('OPÇÃO INVALIDA!')
+            
 
     elif escolha == 3:
         print('Você escolheu produtos')
