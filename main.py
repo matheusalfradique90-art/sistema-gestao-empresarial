@@ -1,6 +1,7 @@
 funcionarios = []
 clientes = []
 produtos = []
+estoques = []
 
 # TODO: ---------------------------
 # *!FUNÇÕES DO MODULO FUNCIONARIOS!
@@ -250,10 +251,16 @@ def excluir_cliente():
                 print('CLIENTE NÂO ENCONTRADO!')
                 print()
 
-# *?-----------------------------
+# *?--------------------------------------
 # *! FIM DAS FUNÇÕES DO MODULO DE CLIENTES
-# *?-----------------------------
+# *?--------------------------------------
     
+
+
+# *TODO-------------------------
+# *! FUNÇÕES DO MODULO PRODUTOS 
+# *TODO-------------------------
+
 def cadastrar_produtos(id, nome, preco, categoria, ativo):
 
     produto = {
@@ -373,9 +380,97 @@ def excluir_produto():
             if encontrado == False:
                 print('PRODUTO NÂO ENCONTRADO!')
                 print()
+
+# *TODO----------------------------
+# *! FIM FUNÇÕES DO MODULO PRODUTOS 
+# *TODO-----------------------------
     
+
+def adicionar_estoque(id, nome, preco,  quantidade, categoria):
+
+    estoque = {
+        'id': id,
+        'nome': nome,
+        'preco': preco,
+        'quantidade': quantidade,
+        'categoria': categoria
+    }
+
+    estoques.append(estoque)
+    print('ESTOQUE REABASTECIDO COM SUCESSO!')
+    print()
+
+    return estoque
+
+def listar_estoque():
+    for estoque in estoques:
+             print('ID: ', estoque['id'], '|', 'Nome: ', estoque['nome'], '|', 'Preco: ', estoque['preco'], '|', 'Estoque:: ', estoque['quantidade'], '|', 'Categoria: ', estoque['categoria'])
+             print()
+
+def retirar_estoque():
+    id = int(input('ID do estoque: '))
+    print()
+    encontrado = False
     
+    for estoque in estoques:
+        if estoque['id'] == id:
+            encontrado = True
     
+            print('ID: ', estoque['id'], '|', 'Nome: ', estoque['nome'], '|', 'Preco: ', estoque['preco'], '|', 'Quantidade: ', estoque['quantidade'], '|', 'categoria: ', estoque['categoria'])
+            print()
+    
+            quantidade = int(input('Quantidade que deseja retirar: '))
+            print()
+    
+            if estoque['quantidade'] >= quantidade:
+                print('VALOR INVALIDO!')
+                print()
+    
+            else:
+                nova_quantidade = estoque['quantidade'] - quantidade
+    
+                estoque['quantidade'] = nova_quantidade
+                print('ESTOQUE RETIRADO COM SUCESSO!')
+    
+    if encontrado == False:
+        print('ESTOQUE NÃO ENCONTRADO!')
+
+def consultar_estoque():
+    id = int(input('ID do estoque: '))
+    print()
+    encontrado = False
+
+    for estoque in estoques:
+        if estoque['id'] == id:
+            encontrado = True
+
+            print('ID: ', estoque['id'], '|', 'Nome: ', estoque['nome'], '|', 'Preco: ', estoque['preco'], '|', 'Quantidade: ', estoque['quantidade'], '|', 'Categoria: ', estoque['categoria'])
+            print()
+
+    if encontrado == False:
+        print('ESTOQUE NÃO ENCONTRADO!')
+        print()
+
+def ajustar_estoque():
+    id = int(input('ID do estoque: '))
+    print()
+    encontrado = False
+
+    for estoque in estoques:
+        if estoque['id'] == id:
+            encontrado = True
+
+            print('ID: ', estoque['id'], '|', 'Nome: ', estoque['nome'], '|', 'Preco: ', estoque['preco'], '|', 'Quantidade: ', estoque['quantidade'], '|', 'Categoria: ', estoque['categoria'])
+            print()
+
+            quantidade = int(input('Digite a quantidade correta: '))
+            print()
+
+            estoque['quantidade'] = quantidade
+
+    if encontrado == False:
+        print('ESTOQUE NÃO ENCONTRADO!')
+        print()
 
 while True:
     print('='*40)
@@ -519,6 +614,8 @@ while True:
 
             nome = input('Nome do produto: ')
             preco = float(input('Preço do produto: '))
+            print()
+
             print('-' * 40)
             print('        CATEGORIA DE PRODUTOS')
             print('-' * 40)
@@ -575,7 +672,94 @@ while True:
 
 
     elif escolha == 4:
-        print('Você escolheu estoque')
+        print('=' * 9, 'ESTOQUE', '=' * 9)
+        print()
+
+        print('1- adicionar Estoque')
+        print('2- Retirar Estoque')
+        print('3- Listar Estoque')
+        print('4- Consultar Estoque')
+        print('5- Ajustar estoque')
+
+        escolha = int(input('Escolha uma opção: '))
+        print()
+
+        if escolha == 1:
+            id = int(input('ID do produto: '))
+            print()
+            encontrado = False
+
+            for produto in produtos:
+                if produto['id'] == id:
+                    encontrado = True
+
+                    print('ID: ', produto['id'], '|', 'Nome: ', produto['nome'], '|', 'Preco: ', produto['preco'], '|', 'Categoria: ', produto['categoria'], '|', 'ATIVO: ', produto['ativo'])
+                    print()
+                    
+                    quantidade = int(input('Digite a quantidade que desej adicionar: '))
+                    print()
+
+                    encontrado_estoque = False
+
+                    for estoque in estoques:
+                        if estoque['id'] == produto['id']:
+                            encontrado_estoque = True
+
+                            estoque['quantidade'] += quantidade
+
+                    if encontrado_estoque == False:
+                        id = produto['id']
+                        nome = produto['nome']
+                        preco = produto['preco']
+                        categoria = produto['categoria']
+
+                                    
+                        adicionar_estoque(id, nome, preco,  quantidade, categoria)
+
+            if encontrado == False:
+                print('PRODUTO NÃO ENCONTRADO')
+                print()
+
+        elif escolha == 2:
+            id = int(input('ID do estoque: '))
+            print()
+            encontrado = False
+
+            for estoque in estoques:
+                if estoque['id'] == id:
+                    encontrado = True
+
+                    print('ID: ', estoque['id'], '|', 'Nome: ', estoque['nome'], '|', 'Preco: ', estoque['preco'], '|', 'Quantidade: ', estoque['quantidade'], '|', 'categoria: ', estoque['categoria'])
+                    print()
+
+                    quantidade = int(input('Quantidade que deseja retirar: '))
+                    print()
+
+                    if quantidade > estoque['quantidade']:
+                        print('VALOR INVALIDO!')
+                        print()
+
+                    else:
+                        estoque['quantidade'] -= quantidade
+
+                        print('ESTOQUE RETIRADO COM SUCESSO!')
+                        print()
+
+            if encontrado == False:
+                print('ESTOQUE NÃO ENCONTRADO!')
+                print()
+
+
+
+        elif escolha == 3:
+            listar_estoque()
+
+        elif escolha == 4:
+            consultar_estoque()
+
+        elif escolha == 5:
+            ajustar_estoque()
+
     
     elif escolha == 5:
         print('Você escolheu pedidos')
